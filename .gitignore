@@ -219,6 +219,9 @@ fabric.properties
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+gradle/
+gradlew
+gradlew.bat
 
 # CMake
 cmake-build-debug/
