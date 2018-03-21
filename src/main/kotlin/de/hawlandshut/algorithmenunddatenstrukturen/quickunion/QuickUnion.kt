@@ -1,4 +1,4 @@
-package algodata.quickunion
+package de.hawlandshut.algorithmenunddatenstrukturen.quickunion
 
 fun randomGraph(edgeCount : Int, verticeCount : Int) : Graph {
     val vertices = mutableListOf<Pair<Int, Int>>()
@@ -22,7 +22,7 @@ class Graph {
 class QuickUnionTree{
 
     constructor(graph: Graph){
-
+        TODO()
     }
 
     fun isConnected(e1 : Edge, e2 : Edge) = e1.root == e2.root

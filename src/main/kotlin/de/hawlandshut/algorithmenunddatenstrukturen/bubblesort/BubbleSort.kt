@@ -1,4 +1,4 @@
-package algodata.bubblesort
+package de.hawlandshut.algorithmenunddatenstrukturen.bubblesort
 
 fun <T : Comparable<T>>bubbleSort(items : MutableList<T>){
     var swapped: Boolean
@@ -9,10 +9,10 @@ fun <T : Comparable<T>>bubbleSort(items : MutableList<T>){
                 val tmp = items[i]
                 items[i] = items[i - 1]
                 items[i - 1] = tmp
-                swapped = true;
+                swapped = true
             }
         }
-    } while (swapped);
+    } while (swapped)
 }
 
 fun <T : Comparable<T>>bubbleSort(items : Array<T>){
@@ -24,8 +24,8 @@ fun <T : Comparable<T>>bubbleSort(items : Array<T>){
                 val tmp = items[i]
                 items[i] = items[i - 1]
                 items[i - 1] = tmp
-                swapped = true;
+                swapped = true
             }
         }
-    } while (swapped);
+    } while (swapped)
 }

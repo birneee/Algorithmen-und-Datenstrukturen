@@ -1,5 +1,5 @@
-package algodata
+package de.hawlandshut.algorithmenunddatenstrukturen
 
 fun main(args : Array<String>){
-    println("Hallo Algorithmen und Datenstrukturen");
+    println("Hallo Algorithmen und Datenstrukturen")
 }
