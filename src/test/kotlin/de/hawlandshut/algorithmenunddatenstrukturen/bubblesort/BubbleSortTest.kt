@@ -1,7 +1,7 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.bubblesort
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import kotlin.test.assertEquals
 
 class BubbleSortTest{
 
