@@ -1,45 +1,43 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quickunion
 
-fun randomGraph(edgeCount : Int, verticeCount : Int) : Graph {
+fun quickUnion(vertices: List<Pair<Int, Int>>, u : Int, v : Int) : Boolean{
+    val repr = generateQuickUnionTree(vertices)
+    return isConnected(repr, u, v)
+}
+
+fun generateQuickUnionTree(vertices: List<Pair<Int, Int>>) : IntArray {
+    val nodeCount = (vertices.flatMap { it.toList() }.max() ?: 0) + 1
+    val repr = IntArray(nodeCount)
+
+    (0 until nodeCount).forEach { repr[it] = it }
+
+    vertices.forEach({
+        val root1 = findRoot(repr, it.first)
+        val root2 = findRoot(repr, it.second)
+        if(root1 != root2){
+            repr[root1] = root2
+        }
+    })
+
+    return repr
+}
+
+fun isConnected(repr: IntArray, u : Int, v : Int) = findRoot(repr, u) == findRoot(repr, v)
+
+fun randomGraph(edgeCount : Int, vertexCount : Int) : List<Pair<Int,Int>> {
     val vertices = mutableListOf<Pair<Int, Int>>()
 
-    (0 until verticeCount).forEach({
+    (0 until vertexCount).forEach({
         vertices.add(Pair((Math.random() * edgeCount).toInt(), (Math.random() * edgeCount).toInt()))
     })
 
-    return Graph(vertices)
+    return vertices
 }
 
-class Graph {
-    val vertices: MutableList<Pair<Int, Int>>
-
-    constructor(vertices: MutableList<Pair<Int, Int>>) {
-        this.vertices = vertices
+private fun findRoot(repr : IntArray, node : Int) : Int{
+    var root = node
+    while(repr[root] != root){
+        root = repr[root]
     }
-
-}
-
-class QuickUnionTree{
-
-    constructor(graph: Graph){
-        TODO()
-    }
-
-    fun isConnected(e1 : Edge, e2 : Edge) = e1.root == e2.root
-
-    class Edge {
-        var repr : Edge = this
-        val id: Int
-
-        constructor(id : Int){
-            this.id = id
-        }
-
-        constructor(id : Int, repr : Edge){
-            this.id = id
-            this.repr = repr
-        }
-
-        val root : Edge = if(repr == this) this else repr.root
-    }
+    return root;
 }
