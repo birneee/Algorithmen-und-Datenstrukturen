@@ -1,7 +1,9 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quicksort
 
 
+import com.google.common.collect.Ordering
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.*
 import java.util.stream.Collectors
@@ -20,12 +22,10 @@ class QuickSortTest{
 
     @Test
     fun test_quicksort_random_intList(){
-        var list = Random().ints().limit(100).toArray().asList()
-        val list2 = ArrayList(list)
+        var list = Random().ints().limit(100).toArray().toMutableList()
 
-        list = list.sorted()
-        quickSort(list2)
+        quickSort(list)
 
-        assertEquals(list, list2)
+        assertTrue(Ordering.natural<Int>().isOrdered(list))
     }
 }

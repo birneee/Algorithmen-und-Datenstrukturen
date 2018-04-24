@@ -39,6 +39,7 @@ sourceSets {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.google.guava:guava:24.1-jre'
     testCompile 'junit:junit:4.12'
 
 }
