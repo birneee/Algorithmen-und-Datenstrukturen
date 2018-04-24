@@ -1,7 +1,10 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quicksort
 
+
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.*
+import java.util.stream.Collectors
 
 class QuickSortTest{
 
@@ -15,4 +18,14 @@ class QuickSortTest{
         assertEquals(expected, list)
     }
 
+    @Test
+    fun test_quicksort_random_intList(){
+        var list = Random().ints().limit(100).toArray().asList()
+        val list2 = ArrayList(list)
+
+        list = list.sorted()
+        quickSort(list2)
+
+        assertEquals(list, list2)
+    }
 }

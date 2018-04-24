@@ -14,7 +14,7 @@ private fun <T : Comparable<T>>quickSort(items : MutableList<T>, low : Int, high
     if(low >= high)
         return
 
-    val pivot = items[low + (high - low) / 2]
+    val pivot = items[low + ((high - low) * Math.random()).toInt()]
     var i = low
     var j = high
 
@@ -54,7 +54,7 @@ private fun <T : Comparable<T>>quickSort(items : Array<T>, low : Int, high : Int
     if(low >= high)
         return
 
-    val pivot = items[low + (high - low) / 2]
+    val pivot = items[low + ((high - low) * Math.random()).toInt()]
     var i = low
     var j = high
 

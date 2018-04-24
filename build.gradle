@@ -3,6 +3,7 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -11,18 +12,35 @@ buildscript {
 
 apply plugin: 'kotlin'
 
-sourceSets {
-    main.kotlin.srcDirs += 'src/main/myKotlin'
-    main.java.srcDirs += 'src/main/myJava'
-}
-
 repositories {
     mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+
+    main {
+        kotlin {
+            srcDirs 'src/main/kotlin'
+        }
+    }
+
+    test {
+        kotlin {
+            srcDirs 'src/test/kotlin'
+        }
+
+        resources {
+            srcDirs 'src/test/res'
+        }
+    }
+
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'junit:junit:4.12'
+
 }
 
 compileKotlin {
