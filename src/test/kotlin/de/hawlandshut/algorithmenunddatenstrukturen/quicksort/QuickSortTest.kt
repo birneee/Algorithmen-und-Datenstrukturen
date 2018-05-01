@@ -60,7 +60,7 @@ class QuickSortTest{
         val list = Random().ints().limit(1_000_000).boxed().collect(Collectors.toList())
 
         val start = System.nanoTime()
-        quicksortWithInsertionSort(list, 70)
+        quicksortWithInsertionsort(list, 70)
         val time = System.nanoTime() - start
 
         println("${time/1_000_000_000.toDouble()} s")
@@ -73,7 +73,7 @@ class QuickSortTest{
         val list = Random().ints().limit(10_000_000).boxed().collect(Collectors.toList())
 
         val start = System.nanoTime()
-        quicksortWithInsertionSort(list, 70)
+        quicksortWithInsertionsort(list, 70)
         val time = System.nanoTime() - start
 
         println("${time/1_000_000_000.toDouble()} s")

@@ -31,7 +31,7 @@ fun <T : Comparable<T>>quickSort(items : Array<T>, left : Int = 0, right : Int =
  * use insertion sort if field parts are smaller than k
  * @param k switch to insertion sort if field parts are smaller than k
  */
-fun <T : Comparable<T>> quicksortWithInsertionSort(items : MutableList<T>, k : Int){
+fun <T : Comparable<T>> quicksortWithInsertionsort(items : MutableList<T>, k : Int){
     quicksortWithBreak(items, k)
     insertionsort(items)
 }
@@ -41,7 +41,7 @@ fun <T : Comparable<T>> quicksortWithInsertionSort(items : MutableList<T>, k : I
  * use insertion sort if field parts are smaller than k
  * @param k switch to insertion sort if field parts are smaller than k
  */
-fun <T : Comparable<T>> quicksortWithInsertionSort(items : Array<T>, k : Int){
+fun <T : Comparable<T>> quicksortWithInsertionsort(items : Array<T>, k : Int){
     quicksortWithBreak(items, k)
     insertionsort(items)
 }
@@ -62,8 +62,8 @@ private fun <T : Comparable<T>>quicksortWithBreak(items : MutableList<T>,  k : I
 
     pivot = partition(items, pivot, left, right)
 
-    quickSort(items, left, pivot - 1)
-    quickSort(items, pivot + 1, right)
+    quicksortWithBreak(items, k, left, pivot - 1)
+    quicksortWithBreak(items, k,pivot + 1, right)
 }
 
 /**
@@ -82,8 +82,8 @@ private fun <T : Comparable<T>>quicksortWithBreak(items : Array<T>,  k : Int, le
 
     pivot = partition(items, pivot, left, right)
 
-    quickSort(items, left, pivot - 1)
-    quickSort(items, pivot + 1, right)
+    quicksortWithBreak(items, k, left, pivot - 1)
+    quicksortWithBreak(items, k,pivot + 1, right)
 }
 
 /**
