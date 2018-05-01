@@ -9,7 +9,12 @@ These implementations are inspired by the module "Algorithmen und Datenstrukture
 ## Implemented Algorithms
 - BubbleSort
 - QuickSort
-- QuickUnion (in progress)
+- QuickSort Find
+- InsertionSort
+- QuickSort with InsertionSort
+- HeapSort
+- QuickUnion
+
 
 ## Contributions
 You want to help? Absolutely :)
