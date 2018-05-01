@@ -1,81 +1,231 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quicksort
 
-fun <T : Comparable<T>>quickSort(items : MutableList<T>){
-    if (items.size < 2)
+import de.hawlandshut.algorithmenunddatenstrukturen.insertionsort.insertionsort
+
+fun <T : Comparable<T>>quickSort(items : MutableList<T>, left : Int = 0, right : Int = items.size - 1){
+    if(left >= right)
         return
 
-    quickSort(items, 0, items.size - 1)
+    var pivot = determinePivot(items, left, right)
+
+    pivot = partition(items, pivot, left, right)
+
+    quickSort(items, left, pivot - 1)
+    quickSort(items, pivot + 1, right)
 }
 
-private fun <T : Comparable<T>>quickSort(items : MutableList<T>, low : Int, high : Int){
-    if (items.size < 2)
+fun <T : Comparable<T>>quickSort(items : Array<T>, left : Int = 0, right : Int = items.size - 1){
+    if(left >= right)
         return
 
-    if(low >= high)
+    var pivot = determinePivot(items, left, right)
+
+    pivot = partition(items, pivot, left, right)
+
+    quickSort(items, left, pivot - 1)
+    quickSort(items, pivot + 1, right)
+}
+
+/**
+ * Quick Sort with Insertion Sort<br/>
+ * use insertion sort if field parts are smaller than k
+ * @param k switch to insertion sort if field parts are smaller than k
+ */
+fun <T : Comparable<T>> quicksortWithInsertionSort(items : MutableList<T>, k : Int){
+    quicksortWithBreak(items, k)
+    insertionsort(items)
+}
+
+/**
+ * Quick Sort with Insertion Sort<br/>
+ * use insertion sort if field parts are smaller than k
+ * @param k switch to insertion sort if field parts are smaller than k
+ */
+fun <T : Comparable<T>> quicksortWithInsertionSort(items : Array<T>, k : Int){
+    quicksortWithBreak(items, k)
+    insertionsort(items)
+}
+
+/**
+ * Quick Sort with break<br/>
+ * which break sorting if field parts are smaller than k
+ * @param items to sort
+ * @param left bound to sort
+ * @param right bound to sort
+ * @param k break if field parts are smaller than k
+ */
+private fun <T : Comparable<T>>quicksortWithBreak(items : MutableList<T>,  k : Int, left : Int = 0, right : Int = items.size - 1){
+    if(right - left < k)
         return
 
-    val pivot = items[low + ((high - low) * Math.random()).toInt()]
-    var i = low
-    var j = high
+    var pivot = determinePivot(items, left, right)
 
-    while (i <= j){
-        while (items[i] < pivot)
-            i++
-        while (items[j] > pivot)
-            j--
-        if(i <= j){
-            val tmp = items[i]
-            items[i] = items[j]
-            items[j] = tmp
-            i++
-            j--
+    pivot = partition(items, pivot, left, right)
+
+    quickSort(items, left, pivot - 1)
+    quickSort(items, pivot + 1, right)
+}
+
+/**
+ * Quick Sort with break<br/>
+ * which break sorting if field parts are smaller than k
+ * @param items to sort
+ * @param left bound to sort
+ * @param right bound to sort
+ * @param k break if field parts are smaller than k
+ */
+private fun <T : Comparable<T>>quicksortWithBreak(items : Array<T>,  k : Int, left : Int = 0, right : Int = items.size - 1){
+    if(right - left < k)
+        return
+
+    var pivot = determinePivot(items, left, right)
+
+    pivot = partition(items, pivot, left, right)
+
+    quickSort(items, left, pivot - 1)
+    quickSort(items, pivot + 1, right)
+}
+
+/**
+ * Find item at position of items if they were sorted
+ * @param items where to search
+ * @param position
+ * @param low lower bound to sort
+ * @param high upper bound to sort
+ * @return value of element at position
+ */
+fun <T : Comparable<T>> quicksortFind(items : MutableList<T>, index : Int, left : Int = 0, right : Int = items.size - 1) : T{
+    var pivot = determinePivot(items, left, right)
+
+    pivot = partition(items, pivot, left, right)
+
+    if(pivot == index){
+        return items[index]
+    }
+    else if(index < pivot) {
+        return quicksortFind(items, index, left, pivot)
+    }
+    else{
+        return quicksortFind(items, index, pivot, right)
+    }
+}
+
+/**
+ * Find item at position of items if they were sorted
+ * @param items where to search
+ * @param position
+ * @param low lower bound to sort
+ * @param high upper bound to sort
+ * @return value of element at position
+ */
+fun <T : Comparable<T>> quicksortFind(items : Array<T>, index : Int, left : Int = 0, right : Int = items.size - 1) : T{
+    var pivot = determinePivot(items, left, right)
+
+    pivot = partition(items, pivot, left, right)
+
+    if(pivot == index){
+        return items[index]
+    }
+    else if(index < pivot) {
+        return quicksortFind(items, index, left, pivot)
+    }
+    else{
+        return quicksortFind(items, index, pivot, right)
+    }
+}
+
+/**
+ * @return new pivot
+ */
+fun <T: Comparable<T>> partition(items : MutableList<T>, pivot : Int, left : Int, right : Int) : Int{
+    var li = left
+    var ri = right
+    var pivot = pivot
+
+    // swap pivot to with first element
+    items.swap(li, pivot)
+    pivot = li
+
+    while (li != ri){
+        while (items[li] <= items[pivot] && li != ri){
+            li++
+        }
+        while (items[ri] >= items[pivot] && li != ri){
+            ri--
+        }
+        if(li != ri){
+            items.swap(li, ri);
         }
     }
 
-    if(low < j)
-        quickSort(items, low, j)
-
-    if(high > i)
-        quickSort(items, i, high)
-
+    // swap pivot to right place
+    if(items[pivot] > items[li]) {
+        items.swap(pivot, li)
+        return  li
+    }
+    else {
+        items.swap(pivot, li - 1)
+        return  li - 1
+    }
 }
 
-fun <T : Comparable<T>>quickSort(items : Array<T>){
-    if (items.size < 2)
-        return
+/**
+ * @return new pivot
+ */
+fun <T: Comparable<T>> partition(items : Array<T>, pivot : Int, left : Int, right : Int) : Int{
+    var li = left
+    var ri = right
+    var pivot = pivot
 
-    quickSort(items, 0, items.size - 1)
-}
+    // swap pivot to with first element
+    items.swap(li, pivot)
+    pivot = li
 
-private fun <T : Comparable<T>>quickSort(items : Array<T>, low : Int, high : Int){
-    if (items.size < 2)
-        return
-
-    if(low >= high)
-        return
-
-    val pivot = items[low + ((high - low) * Math.random()).toInt()]
-    var i = low
-    var j = high
-
-    while (i <= j){
-        while (items[i] < pivot)
-            i++
-        while (items[j] > pivot)
-            j--
-        if(i <= j){
-            val tmp = items[i]
-            items[i] = items[j]
-            items[j] = tmp
-            i++
-            j--
+    while (li != ri){
+        while (items[li] <= items[pivot] && li != ri){
+            li++
+        }
+        while (items[ri] >= items[pivot] && li != ri){
+            ri--
+        }
+        if(li != ri){
+            items.swap(li, ri);
         }
     }
 
-    if(low < j)
-        quickSort(items, low, j)
+    // swap pivot to right place
+    if(items[pivot] > items[li]) {
+        items.swap(pivot, li)
+        return  li
+    }
+    else {
+        items.swap(pivot, li - 1)
+        return  li - 1
+    }
+}
 
-    if(high > i)
-        quickSort(items, i, high)
+private fun <T> MutableList<T>.swap(index1 : Int, index2 : Int){
+    val tmp = this[index1]
+    this[index1] = this[index2]
+    this[index2] = tmp
+}
 
+private fun <T> Array<T>.swap(index1 : Int, index2 : Int){
+    val tmp = this[index1]
+    this[index1] = this[index2]
+    this[index2] = tmp
+}
+
+/**
+ * Determine index of pivot element
+ */
+private fun <T : Comparable<T>> determinePivot(items : MutableList<T>, left : Int, right : Int) : Int{
+    return left + ((right - left) * Math.random()).toInt()
+}
+
+/**
+ * Determine index of pivot element
+ */
+private fun <T : Comparable<T>> determinePivot(items : Array<T>, left : Int, right : Int) : Int{
+    return left + ((right - left) * Math.random()).toInt()
 }
