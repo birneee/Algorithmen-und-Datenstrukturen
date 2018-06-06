@@ -32,14 +32,14 @@ fun isConnected(repr: IntArray, u : Int, v : Int) = findRoot(repr, u) == findRoo
  * generate a list which represent all connected groups.<br/>
  * these groups contain all edges with it connections
  */
-fun generateAdjacencyList(vertices: List<Pair<Int, Int>>) : List<Map<Int, IntArray>>{
+fun generateAdjacencyList(vertices: List<Pair<Int, Int>>) : List<Map<Int, List<Int>>>{
     val repr = generateQuickUnionTree(vertices)
-    val components = mutableListOf<Map<Int, IntArray>>()
+    val components = mutableListOf<Map<Int, List<Int>>>()
 
     repr.indices
             .groupBy { edge -> findRoot(repr, edge) }
             .forEach { _, edges ->
-                val component = mutableMapOf<Int, IntArray>()
+                val component = mutableMapOf<Int, List<Int>>()
                 edges.forEach { edge ->
                     component[edge] = getDirectConnections(vertices, edge)
                 }
@@ -59,11 +59,11 @@ fun randomGraph(edgeCount : Int, vertexCount : Int) : List<Pair<Int,Int>> {
     return vertices
 }
 
-private fun getDirectConnections(vertices: List<Pair<Int, Int>>, edge : Int) : IntArray{
+private fun getDirectConnections(vertices: List<Pair<Int, Int>>, edge : Int) : List<Int>{
     return vertices
             .filter { vertex -> vertex.toList().contains(edge) }
             .map { vertex -> if(vertex.first == edge) vertex.second else vertex.first}
-            .toIntArray()
+            .toList()
 }
 
 private fun findRoot(repr : IntArray, edge : Int) : Int{

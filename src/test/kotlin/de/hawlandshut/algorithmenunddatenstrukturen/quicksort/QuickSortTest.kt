@@ -2,6 +2,7 @@ package de.hawlandshut.algorithmenunddatenstrukturen.quicksort
 
 
 import com.google.common.collect.Ordering
+import de.hawlandshut.algorithmenunddatenstrukturen.common.testSort
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -18,6 +19,11 @@ class QuickSortTest{
         quickSort(list)
 
         assertEquals(expected, list)
+    }
+
+    @Test
+    fun test_common(){
+        testSort { quickSort(it) }
     }
 
     @Test

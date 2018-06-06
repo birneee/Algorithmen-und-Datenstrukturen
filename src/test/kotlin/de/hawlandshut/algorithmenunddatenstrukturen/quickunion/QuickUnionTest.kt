@@ -1,5 +1,6 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quickunion
 
+import de.hawlandshut.algorithmenunddatenstrukturen.util.readVerticesFromFile
 import org.junit.Assert.*
 import org.junit.Test
 import java.io.IOException
@@ -62,19 +63,6 @@ class QuickUnionTest{
         println("3:\n$actual3")
         println("4:\n$actual4")
         println("5:\n$actual5")
-    }
-
-    private fun readVerticesFromFile(filename: String): List<Pair<Int, Int>> {
-        val edgeList = ArrayList<Pair<Int, Int>>()
-
-        val path = Thread.currentThread().contextClassLoader.getResource(filename).path
-        println(path)
-        val reader = BufferedReader(FileReader(path))
-        return reader.lines()
-                .filter{ !it.isBlank() }
-                .map{ it.split(" ") }
-                .map { Pair(it[0].toInt(), it[1].toInt()) }
-                .collect(Collectors.toList())
     }
 
 }
