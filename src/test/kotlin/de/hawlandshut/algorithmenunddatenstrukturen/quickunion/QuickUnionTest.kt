@@ -1,14 +1,9 @@
 package de.hawlandshut.algorithmenunddatenstrukturen.quickunion
 
 import de.hawlandshut.algorithmenunddatenstrukturen.util.readVerticesFromFile
-import org.junit.Assert.*
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.IOException
-import java.io.BufferedReader
-import java.io.FileReader
-import java.io.InputStreamReader
-import java.util.ArrayList
-import java.util.stream.Collectors
 
 
 class QuickUnionTest{
@@ -30,7 +25,7 @@ class QuickUnionTest{
     }
 
 
-    fun adjacencyListToString(adjacencyList : List<Map<Int, IntArray>>) : String{
+    fun adjacencyListToString(adjacencyList : List<Map<Int, List<Int>>>) : String{
         val sb = StringBuilder()
 
         adjacencyList.forEachIndexed{ index, edges ->

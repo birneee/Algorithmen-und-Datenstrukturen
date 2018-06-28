@@ -2,7 +2,7 @@ package de.hawlandshut.algorithmenunddatenstrukturen.util
 
 import java.io.BufferedReader
 import java.io.FileReader
-import java.util.ArrayList
+import java.util.*
 import java.util.stream.Collectors
 
 fun readVerticesFromFile(filename: String): List<Pair<Int, Int>> {

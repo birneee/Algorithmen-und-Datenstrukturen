@@ -101,8 +101,8 @@ fun <T: Comparable<T>> decreaseKey(items: MutableList<T>, pos : Int, value : T){
 fun <T: Comparable<T>> extractMax(items : MutableList<T>) : T{
     if(items.size == 0) throw IllegalArgumentException("Heap is empty")
     val max = items[0]
-    items[0] = items[items.size]
-    items.removeAt(items.size)
+    items[0] = items[items.size - 1]
+    items.removeAt(items.size - 1)
     heapifyMax(items, 0)
     return max
 }
@@ -116,8 +116,8 @@ fun <T: Comparable<T>> extractMax(items : MutableList<T>) : T{
 fun <T: Comparable<T>> extractMin(items : MutableList<T>) : T{
     if(items.size == 0) throw IllegalArgumentException("Heap is empty")
     val min = items[0]
-    items[0] = items[items.size]
-    items.removeAt(items.size)
+    items[0] = items[items.size - 1]
+    items.removeAt(items.size - 1)
     heapifyMin(items, 0)
     return min
 }
